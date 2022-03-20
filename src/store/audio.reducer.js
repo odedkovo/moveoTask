@@ -10,7 +10,7 @@ const initialState = {
     { name: 'LEAD', _id: 7, color: 'lightpink', isMute: false },
     { name: 'UUHOVOC', _id: 8, color: 'lightyellow', isMute: false },
   ],
-  loop: false,
+  isLoop: false,
   pause: false,
 };
 
@@ -49,7 +49,7 @@ export function audioReducer(state = initialState, action) {
 
       newState = {
         ...state,
-        loop: !state.loop,
+        isLoop: !state.isLoop,
       };
 
       break;

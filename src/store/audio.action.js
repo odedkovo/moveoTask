@@ -25,7 +25,7 @@ export function toggleLoop() {
     try {
       dispatch({ type: 'TOGGLE_LOOP' });
     } catch (err) {
-      console.log('coudnt toggle loop ', err);
+      console.log('coudnt toggle isLoop ', err);
     }
   };
 }
@@ -34,7 +34,7 @@ export function togglePause(boolean) {
     try {
       dispatch({ type: 'TOGGLE_PAUSE', boolean });
     } catch (err) {
-      console.log('coudnt toggle loop ', err);
+      console.log('coudnt toggle isLoop ', err);
     }
   };
 }
