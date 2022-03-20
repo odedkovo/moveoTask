@@ -1,5 +1,4 @@
 export function updateAudio(updatedAudio) {
-  console.log(updatedAudio);
   return async (dispatch) => {
     try {
       dispatch({ type: 'TOGGLE_MUTE', updatedAudio });

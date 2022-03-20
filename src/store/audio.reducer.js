@@ -19,8 +19,6 @@ export function audioReducer(state = initialState, action) {
 
   switch (action.type) {
     case 'TOGGLE_MUTE':
-      console.log('in reducer');
-      console.log(action.updatedAudio);
       newState = {
         ...state,
         audios: [
@@ -35,8 +33,6 @@ export function audioReducer(state = initialState, action) {
       break;
 
     case 'TOGGLE_PLAY':
-      console.log('in reducer');
-
       newState = {
         ...state,
         play: action.boolean,
@@ -45,8 +41,6 @@ export function audioReducer(state = initialState, action) {
       break;
 
     case 'TOGGLE_LOOP':
-      console.log('in reducer');
-
       newState = {
         ...state,
         isLoop: !state.isLoop,
@@ -54,7 +48,6 @@ export function audioReducer(state = initialState, action) {
 
       break;
     case 'TOGGLE_PAUSE':
-      console.log('in reducer');
       newState = {
         ...state,
         pause: action.boolean,

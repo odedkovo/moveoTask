@@ -10,9 +10,11 @@ export function HomePage() {
   const dispatch = useDispatch();
 
   const { isLoop } = useSelector((state) => state.audioModule);
-
   const [recordingTime, setRecordingTime] = useState(0); //state variable -showing the time on progress bar and change due to recording time
   const [timeToChange, setTimeToChange] = useState(0); //when changing time manualy on progress bar this variable changing -  audioPreview listening to this variable and when is changes the recording time changing to this state value.
+  const TimeLineToShow = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+  ];
 
   const changeTime = (val) => {
     setRecordingTime(val);
@@ -23,7 +25,6 @@ export function HomePage() {
   };
 
   const onToggleLoop = () => {
-    console.log('toggle');
     dispatch(toggleLoop());
   };
 
@@ -32,16 +33,11 @@ export function HomePage() {
     dispatch(togglePause(true));
   };
 
-  const TimeLineToShow = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-  ];
-
   return (
     <section className='home-page'>
       <section className='audios'>
         <div className='control-panel'>
           <span className='cursor'>Cursor:</span>
-
           <section className='range-section'>
             <input
               className='top-range'
@@ -55,7 +51,11 @@ export function HomePage() {
             />
             <div className='time-line'>
               {TimeLineToShow.map((num) => {
-                return <span className='num-to-display'>{num}</span>;
+                return (
+                  <span key={num} className='num-to-display'>
+                    {num}
+                  </span>
+                );
               })}
             </div>
           </section>
@@ -73,6 +73,7 @@ export function HomePage() {
         <button className='control-btn' onClick={onToggleLoop}>
           <span className='text'>Loop/{isLoop ? 'on' : 'off'}</span>
         </button>
+
         <button className='control-btn' onClick={onPause}>
           <span className='text'>pause</span>
         </button>

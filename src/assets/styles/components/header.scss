@@ -1,4 +1,5 @@
 .app-header {
+  z-index: important;
   height: 10vh;
   width: 100%;
   background-color: rgba(210, 213, 255, 0.13);
@@ -25,6 +26,7 @@
       align-items: center;
     }
     a {
+      z-index: important;
       text-decoration: none;
       color: black;
       font-size: 1.5rem;
@@ -34,9 +36,7 @@
     }
 
     a:hover {
-      // color: rgb(198, 207, 195);
       box-shadow: inset 0px -6px 0px;
-      // box-shadow: 5px solid black;
     }
   }
 }

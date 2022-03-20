@@ -39,5 +39,9 @@
     margin-right: 15px;
     max-height: 15px;
     color: #896cca;
+    z-index: 4;
+  }
+  .mute-btn:hover {
+    cursor: pointer;
   }
 }

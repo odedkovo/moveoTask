@@ -9,28 +9,31 @@ import soundSvg from '../assets/imgs/svg/sound.svg';
 const AudioPreview = ({ timeToChange, changeTime, audio }) => {
   const dispatch = useDispatch();
 
-  const { play } = useSelector((state) => ({
-    play: state.audioModule.play,
-  }));
-  const { pause } = useSelector((state) => ({
-    pause: state.audioModule.pause,
-  }));
-
-  const { isLoop } = useSelector((state) => ({
-    isLoop: state.audioModule.isLoop,
-  }));
+  const { play } = useSelector((state) => state.audioModule);
+  const { pause } = useSelector((state) => state.audioModule);
+  const { isLoop } = useSelector((state) => state.audioModule);
 
   const [recording, setRecording] = useState(new Audio());
   const intervalId = useRef();
+  const reset = () => {
+    if (recording.currentTime > 17.37) {
+      recording.currentTime = 0;
+      recording.play();
+    }
+  };
+  const toggleMute = () => {
+    const newAudio = { ...audio, isMute: !audio.isMute };
+    dispatch(updateAudio(newAudio));
+  };
 
   useEffect(() => {
     recording.src = require(`../assets/audios/${audio.name}.mp3`);
     return () => {
-      console.log('unmounting');
       recording.pause();
       changeTime(0);
       recording.currentTime = 0;
       dispatch(togglePlay(false));
+      clearInterval(intervalId.current);
     };
   }, []);
 
@@ -41,14 +44,20 @@ const AudioPreview = ({ timeToChange, changeTime, audio }) => {
 
     if (play) {
       recording.play();
-      if (isLoop) recording.loop = true;
-      else if (!isLoop) recording.loop = false;
+      if (isLoop && !pause) {
+        intervalId.current = setInterval(reset, 1);
+      } else if (!isLoop) {
+        clearInterval(intervalId.current);
+      }
+      recording.loop = false;
     } else if (!play && pause) {
       recording.pause();
+      clearInterval(intervalId.current);
     } else {
       recording.pause();
       changeTime(0);
       recording.currentTime = 0;
+      clearInterval(intervalId.current);
     }
 
     recording.onended = () => {
@@ -65,11 +74,6 @@ const AudioPreview = ({ timeToChange, changeTime, audio }) => {
   useEffect(() => {
     recording.currentTime = (timeToChange * 17) / 17000;
   }, [timeToChange]);
-
-  const toggleMute = () => {
-    const newAudio = { ...audio, isMute: !audio.isMute };
-    dispatch(updateAudio(newAudio));
-  };
 
   return (
     <div style={{ backgroundColor: audio.color }} className='audio'>
